@@ -1,0 +1,15 @@
+- name: Install Firefox on Mac
+  hosts: local
+  become: false
+
+  tasks:
+    - name: Ensure Homebrew is installed
+      community.general.homebrew:
+        name: brew
+        state: present
+
+    - name: Install Firefox
+      community.general.homebrew:
+        name: firefox
+        state: present
+
