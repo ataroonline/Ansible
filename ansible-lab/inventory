@@ -1,0 +1,4 @@
+[local]
+mac ansible_connection=local
+
+
