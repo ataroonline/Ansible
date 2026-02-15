@@ -1,33 +1,111 @@
-# Ansible
-Environnement de Test Ansible Sovi
+🚀 Ansible Installation & Deployment Guide
 
-# Ansible Lab - macOS
+Ce dépôt contient les playbooks et rôles Ansible nécessaires pour configurer et déployer l'infrastructure.
 
-Ce dépôt contient un **lab Ansible** pour automatiser des tâches sur macOS et, si besoin, sur des VMs distantes via SSH.  
-Vous trouverez des playbooks pour installer des logiciels, configurer le système, ou gérer des machines dans un domaine.
+📦 Prérequis
 
----
+Avant de commencer, assure-toi d’avoir :
 
-## 📦 Prérequis
+Python 3.x
 
-Avant de commencer, assurez-vous que votre Mac dispose de :
+Pip
 
-- macOS à jour
-- [Homebrew](https://brew.sh/) installé
-- Git installé
-- [Visual Studio Code](https://code.visualstudio.com/) (optionnel, recommandé)
-- Connexion SSH si vous utilisez des VMs distantes
+SSH installé et configuré
 
----
+Un accès sudo sur les machines cibles
 
-## 🛠 Installation d'Ansible
+Installer Ansible
+🐧 Linux / macOS
+sudo apt update
+sudo apt install ansible -y
 
-1. Installer Homebrew (si nécessaire) :
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install ansible
+ou via pip :
+
+pip install ansible
+
+🪟 Windows
+
+Utiliser WSL (Windows Subsystem for Linux) recommandé.
+
+Installer via pip :
+
+pip install ansible
+
+
+Vérifier l’installation :
+
 ansible --version
 
+📁 Structure du projet
+.
+├── inventories/
+│   ├── production/
+│   └── staging/
+├── roles/
+├── playbooks/
+├── group_vars/
+├── host_vars/
+└── ansible.cfg
+
+⚙️ Configuration
+1️⃣ Cloner le projet
+git clone https://github.com/ton-utilisateur/ton-repo.git
+cd ton-repo
+
+2️⃣ Configurer l’inventaire
+
+Modifier le fichier :
+
+inventories/production/hosts
 
 
+Exemple :
+
+[web]
+192.168.1.10
+
+[db]
+192.168.1.20
+
+🔐 Gestion des clés SSH
+
+Si nécessaire :
+
+ssh-keygen
+ssh-copy-id user@server
+
+▶️ Exécuter un playbook
+ansible-playbook -i inventories/production/hosts playbooks/site.yml
+
+🧪 Test de connexion
+ansible all -i inventories/production/hosts -m ping
+
+📚 Bonnes pratiques
+
+Utiliser des rôles pour modulariser
+
+Séparer staging / production
+
+Utiliser Ansible Vault pour les secrets :
+
+ansible-vault encrypt group_vars/all.yml
+
+🛠️ Commandes utiles
+
+Lister les hosts :
+
+ansible all --list-hosts -i inventories/production/hosts
+
+
+Exécuter une commande :
+
+ansible all -i inventories/production/hosts -a "uptime"
+
+🤝 Contribution
+
+Fork le projet
+
+Créer une branche
+
+Faire une Pull Request
